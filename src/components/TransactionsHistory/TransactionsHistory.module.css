@@ -1,0 +1,32 @@
+table,
+thead,
+tr,
+th,
+tbody,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 700px;
+  text-align: center;
+
+  background-color: white;
+  border-collapse: collapse;
+  border-radius: 5px;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.thead {
+  height: 40px;
+}
+
+.tbody {
+  color: gray;
+}
+
+.bodyRow {
+  height: 25px;
+}
