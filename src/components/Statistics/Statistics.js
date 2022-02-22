@@ -1,6 +1,6 @@
 import PropsTypes from 'prop-types';
 import s from './Statistics.module.css';
-import randomColor from 'javascripts/random-color';
+import randomColor from 'utils/random-color';
 
 export default function Statistics({ items }) {
   return (
@@ -24,10 +24,8 @@ export default function Statistics({ items }) {
 
 Statistics.PropsTypes = {
   items: PropsTypes.arrayOf({
-    item: PropsTypes.shape({
-      id: PropsTypes.string,
-      label: PropsTypes.string.isRequired,
-      percentage: PropsTypes.number.isRequired,
-    }),
+    id: PropsTypes.string.isRequired,
+    label: PropsTypes.string.isRequired,
+    percentage: PropsTypes.number.isRequired,
   }),
 };
