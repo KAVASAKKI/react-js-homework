@@ -1,10 +1,14 @@
 import { Component } from 'react';
-
 import { Container, FeedbackOptions, Section, Statistics } from './components';
+import PropTypes from 'prop-types';
 
 class Feedback extends Component {
   static defaultProps = {
     initialValue: 0,
+  };
+
+  static propTypes = {
+    initialValue: PropTypes.number,
   };
 
   state = {
