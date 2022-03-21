@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Notification } from '../Notification';
+import { Notification } from '../../components';
 import { List, Item, Name, Number, Button } from './ContactList.styled';
 
 const ContactList = ({ deleteContact, contacts }) => (
@@ -29,11 +29,13 @@ const ContactList = ({ deleteContact, contacts }) => (
 );
 ContactList.propTypes = {
   deleteContact: PropTypes.func.isRequired,
-  contacts: PropTypes.arrayOf({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-  }),
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }).isRequired,
+  ),
 };
 
 export default ContactList;

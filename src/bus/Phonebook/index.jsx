@@ -51,16 +51,15 @@ class Phonebook extends Component {
 
   render() {
     const { filter } = this.state;
-
     const visibleContacts = this.getVisibleContacts();
 
     return (
       <Container>
-        <Section title="Phonebook">
+        <Section color="teal" title="Phonebook">
           <ContactForm addContact={this.addContact} />
         </Section>
 
-        <Section title="Contacts">
+        <Section color="teal" title="Contacts">
           <Filter onChange={this.changeFilter} value={filter} />
 
           <ContactList

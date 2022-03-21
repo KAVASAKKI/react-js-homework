@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Notification from '../Notification/Notification';
+import { Notification } from '../../components';
 import styles from './Statistics.module.css';
 
 const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (

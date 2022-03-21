@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import { Container, FeedbackOptions, Section, Statistics } from './components';
 import PropTypes from 'prop-types';
+
+import { Container, Section, FeedbackOptions, Statistics } from './components';
 
 class Feedback extends Component {
   static defaultProps = {
@@ -47,16 +48,18 @@ class Feedback extends Component {
     const total = this.countTotalFeedback();
     const positivePercentage = this.countPositiveFeedbackPercentage();
 
+    const color = 'rgba(0, 0, 0, 0.8)';
+
     return (
       <Container>
-        <Section title="Please leave feedback">
+        <Section color={color} title="Please leave feedback">
           <FeedbackOptions
             options={options}
             onLeaveFeedback={this.estimateHandler}
           />
         </Section>
 
-        <Section title="Statistics">
+        <Section color={color} title="Statistics">
           <Statistics
             good={good}
             neutral={neutral}
