@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import {
   Container,
   ContactForm,
@@ -7,68 +7,42 @@ import {
   Section,
 } from './components';
 
-class Phonebook extends Component {
-  state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    filter: '',
-  };
+export default function Phonebook() {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
 
-  addContact = newContact => {
-    const isExist = this.state.contacts.find(
-      contact => contact.name === newContact.name,
-    );
+  function addContact(newContact) {
+    const isExist = contacts.find(contact => contact.name === newContact.name);
 
-    isExist
-      ? alert(`${newContact.name} is already in contacts.`)
-      : this.setState(prevState => ({
-          contacts: [...prevState.contacts, newContact],
-        }));
-  };
-
-  deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
-  };
-
-  changeFilter = event => {
-    this.setState({ filter: event.currentTarget.value });
-  };
-
-  getVisibleContacts = () => {
-    const { contacts, filter } = this.state;
-    const normalizedFilter = filter.toLowerCase();
-
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter),
-    );
-  };
-
-  render() {
-    const { filter } = this.state;
-    const visibleContacts = this.getVisibleContacts();
-
-    return (
-      <Container>
-        <Section color="teal" title="Phonebook">
-          <ContactForm addContact={this.addContact} />
-        </Section>
-
-        <Section color="teal" title="Contacts">
-          <Filter onChange={this.changeFilter} value={filter} />
-
-          <ContactList
-            deleteContact={this.deleteContact}
-            contacts={visibleContacts}
-          />
-        </Section>
-      </Container>
-    );
+    if (isExist) {
+      alert(`${newContact.name} is already in contacts.`);
+    } else {
+      setContacts(prevState => [...prevState, newContact]);
+    }
   }
+
+  function deleteContact(contactId) {
+    setContacts(contacts.filter(contact => contact.id !== contactId));
+  }
+
+  const filterableContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
+  return (
+    <Container>
+      <Section color="teal" title="Phonebook">
+        <ContactForm addContact={addContact} />
+      </Section>
+
+      <Section color="teal" title="Contacts">
+        <Filter onChange={setFilter} value={filter} />
+
+        <ContactList
+          deleteContact={deleteContact}
+          contacts={filterableContacts}
+        />
+      </Section>
+    </Container>
+  );
 }
-export default Phonebook;
