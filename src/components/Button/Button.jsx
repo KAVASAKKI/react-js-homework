@@ -1,7 +1,7 @@
 import styles from './Button.module.css';
 import propTypes from 'prop-types';
 
-const Button = ({ loadMore }) => {
+export default function Button({ loadMore }) {
   return (
     <button
       onClick={loadMore}
@@ -12,10 +12,8 @@ const Button = ({ loadMore }) => {
       Load more
     </button>
   );
-};
+}
 
 Button.propTypes = {
   loadMore: propTypes.func.isRequired,
 };
-
-export default Button;

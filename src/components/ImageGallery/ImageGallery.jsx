@@ -2,7 +2,7 @@ import { ImageGalleryItem } from 'components';
 import styles from './ImageGallery.module.css';
 import propTypes from 'prop-types';
 
-const ImageGallery = ({ getImageUrl, images }) => {
+export default function ImageGallery({ getImageUrl, images }) {
   return (
     <ul className={styles.list}>
       {images.map(image => (
@@ -14,7 +14,7 @@ const ImageGallery = ({ getImageUrl, images }) => {
       ))}
     </ul>
   );
-};
+}
 
 ImageGallery.propTypes = {
   getImageUrl: propTypes.func.isRequired,
@@ -26,5 +26,3 @@ ImageGallery.propTypes = {
     }),
   ),
 };
-
-export default ImageGallery;

@@ -1,7 +1,7 @@
 import ContentLoader from 'react-content-loader';
 import styles from './Loader.module.css';
 
-const Loader = () => {
+export default function Loader() {
   const cards = [];
   for (let i = 1; i <= 12; i++) {
     cards.push(<rect className={styles.rect} />);
@@ -21,8 +21,4 @@ const Loader = () => {
       ))}
     </div>
   );
-};
-
-Loader.propTypes = {};
-
-export default Loader;
+}

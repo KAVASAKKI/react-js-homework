@@ -1,7 +1,7 @@
-const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '25648559-9cac4d1311f1c323ef3f81d16';
+const BASE_URL = 'https://pixabay.com/api/';
 
-async function fetchImages(searchQuery, page) {
+export default async function fetchImages(searchQuery, page) {
   const url = `${BASE_URL}?q=${searchQuery}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
 
   try {
@@ -12,5 +12,3 @@ async function fetchImages(searchQuery, page) {
     return error;
   }
 }
-
-export default fetchImages;

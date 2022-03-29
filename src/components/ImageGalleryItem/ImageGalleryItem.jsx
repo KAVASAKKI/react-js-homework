@@ -1,7 +1,7 @@
 import styles from './ImageGalleryItem.module.css';
 import propTypes from 'prop-types';
 
-const ImageGalleryItem = ({ getImageUrl, image }) => {
+export default function ImageGalleryItem({ getImageUrl, image }) {
   return (
     <li className={styles.item}>
       <img
@@ -13,7 +13,7 @@ const ImageGalleryItem = ({ getImageUrl, image }) => {
       />
     </li>
   );
-};
+}
 
 ImageGalleryItem.propTypes = {
   getImageUrl: propTypes.func.isRequired,
@@ -23,5 +23,3 @@ ImageGalleryItem.propTypes = {
     largeImageURL: propTypes.string.isRequired,
   }),
 };
-
-export default ImageGalleryItem;

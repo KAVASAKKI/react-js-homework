@@ -1,45 +1,41 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import propTypes from 'prop-types';
 import styles from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeyDown);
-  }
+export default function Modal({ onClose, imageURL, alt }) {
+  useEffect(() => {
+    window.addEventListener('keydown', onKeyDown);
+    console.log('Слушатель добавлен');
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyDown);
-  }
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      console.log('Слушатель удалён');
+    };
+  });
 
-  onKeyDown = e => {
+  function onKeyDown(e) {
     if (e.code === 'Escape') {
-      this.props.onClose();
+      onClose();
     }
-  };
-
-  onBackdropClick = e => {
-    if (e.currentTarget === e.target) {
-      this.props.onClose();
-    }
-  };
-
-  render() {
-    return createPortal(
-      <div className={styles.backdrop} onClick={this.onBackdropClick}>
-        <div>
-          <img
-            src={this.props.imageURL}
-            alt={this.props.alt}
-            className={styles.image}
-          />
-        </div>
-      </div>,
-      modalRoot,
-    );
   }
+
+  function onBackdropClick(e) {
+    if (e.currentTarget === e.target) {
+      onClose();
+    }
+  }
+
+  return createPortal(
+    <div className={styles.backdrop} onClick={onBackdropClick}>
+      <div>
+        <img src={imageURL} alt={alt} className={styles.image} />
+      </div>
+    </div>,
+    modalRoot,
+  );
 }
 
 Modal.propTypes = {
@@ -47,5 +43,3 @@ Modal.propTypes = {
   onClose: propTypes.func.isRequired,
   alt: propTypes.string.isRequired,
 };
-
-export default Modal;
