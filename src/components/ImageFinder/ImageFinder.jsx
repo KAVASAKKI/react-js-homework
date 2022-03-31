@@ -1,17 +1,11 @@
+import propTypes from 'prop-types';
 import { Loader, Button, ImageGallery } from '../../components';
 import { useFetchData, Status } from 'hooks';
-import propTypes from 'prop-types';
 import styles from './ImageFinder.module.css';
 
 export default function ImageFinder({ searchQuery, getImageUrl }) {
-  const { images, messagesEndRef, status, loadMore, error } =
+  const { images, status, error, setPage, messagesEndRef } =
     useFetchData(searchQuery);
-
-  console.log('images: ', images);
-  console.log('messagesEndRef: ', messagesEndRef);
-  console.log('status: ', status);
-  console.log('loadMore: ', loadMore);
-  console.log('error: ', error);
 
   if (status === Status.IDLE) {
     return (
@@ -37,7 +31,7 @@ export default function ImageFinder({ searchQuery, getImageUrl }) {
     return (
       <>
         <ImageGallery getImageUrl={getImageUrl} images={images} />
-        <Button loadMore={loadMore} />
+        <Button setPage={setPage} />
 
         <div ref={messagesEndRef} />
       </>

@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import fetchImages from 'services/images-api';
+import { useEffect, useState, useRef } from 'react';
+import { fetchImages } from 'services/imagesAPI';
 
 export const Status = {
   IDLE: 'idle',
@@ -9,59 +9,43 @@ export const Status = {
 };
 
 export const useFetchData = searchQuery => {
-  const [status, setStatus] = useState(Status.IDLE);
   const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
+  const [status, setStatus] = useState(Status.IDLE);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
   const messagesEndRef = useRef(null);
-
-  const fetchMyData = useCallback(async newSearch => {
-    setPage(1);
-    setStatus(Status.PENDING);
-
-    const data = await fetchData(newSearch);
-
-    if (data.length) {
-      setImages(getImages(data));
-      setStatus(Status.RESOLVED);
-
-      scrollToBottom();
-
-      return data;
-    }
-
-    setError(`Not found images with name '${newSearch}'`);
-    setStatus(Status.REJECTED);
-  }, []);
 
   useEffect(() => {
     if (searchQuery) {
-      fetchMyData(searchQuery);
-    }
-  }, [fetchMyData, searchQuery]);
+      setPage(1);
+      setImages([]);
 
-  async function fetchData(url, page = 1) {
+      setStatus(Status.PENDING);
+      fetchData(1);
+    }
+  }, [searchQuery]); // eslint-disable-line
+
+  useEffect(() => {
+    if (page !== 1) {
+      setStatus(Status.PENDING);
+      fetchData();
+    }
+  }, [page]); // eslint-disable-line
+
+  async function fetchData(newPage = page) {
     try {
-      return fetchImages(url, page);
+      const data = await fetchImages(searchQuery, newPage);
+
+      setImages(prevImages => [...prevImages, ...getImages(data)]);
+      setStatus(Status.RESOLVED);
+
+      scrollToBottom();
     } catch (error) {
+      setError(error.message);
       setStatus(Status.REJECTED);
-      setError(error);
+      throw new Error(error);
     }
   }
-
-  const loadMore = async () => {
-    const newPage = page + 1;
-
-    setPage(newPage);
-    setStatus(Status.PENDING);
-
-    const data = await fetchData(searchQuery, newPage);
-
-    setImages(prevState => [...prevState, ...getImages(data)]);
-    setStatus(Status.RESOLVED);
-
-    scrollToBottom();
-  };
 
   function getImages(data) {
     return data.map(image => ({
@@ -75,5 +59,5 @@ export const useFetchData = searchQuery => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  return { images, messagesEndRef, status, loadMore, error };
+  return { images, status, error, setPage, messagesEndRef };
 };

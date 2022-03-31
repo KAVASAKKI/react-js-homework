@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { ImageFinder, Modal, Searchbar } from './components';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ImageFinder, Modal, Searchbar } from './components';
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,17 +27,7 @@ export default function App() {
         <Modal imageURL={image} onClose={toggleModal} alt={searchQuery} />
       )}
 
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer position="top-right" autoClose={1500} />
     </div>
   );
 }

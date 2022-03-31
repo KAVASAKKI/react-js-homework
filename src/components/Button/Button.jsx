@@ -1,13 +1,13 @@
 import styles from './Button.module.css';
 import propTypes from 'prop-types';
 
-export default function Button({ loadMore }) {
+export default function Button({ setPage }) {
   return (
     <button
-      onClick={loadMore}
+      className={styles.container}
       type="button"
       id="loadMoreBtn"
-      className={styles.container}
+      onClick={() => setPage(prevPage => prevPage + 1)}
     >
       Load more
     </button>
@@ -15,5 +15,5 @@ export default function Button({ loadMore }) {
 }
 
 Button.propTypes = {
-  loadMore: propTypes.func.isRequired,
+  setPage: propTypes.func.isRequired,
 };
