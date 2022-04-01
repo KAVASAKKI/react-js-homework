@@ -7,7 +7,7 @@ import {
   Section,
 } from './components';
 
-function useLocalStorage(key, defaultValue = '') {
+function useLocalStorage(key, defaultValue = []) {
   const [state, setState] = useState(() => {
     return JSON.parse(localStorage.getItem(key)) ?? defaultValue;
   });
