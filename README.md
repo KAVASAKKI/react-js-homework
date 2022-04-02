@@ -1,5 +1,5 @@
 ## Homework 1
-- Profile/Statistics/Transactions: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/01-components) | [Preview](https://components-01-profile.herokuapp.com/)**
+- Profile/Statistics/Transactions: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/01-components) | [Preview](https://components-01-profile.herokuapp.com/){:target="_blank"}**
 
 ## Homework 2
 - Phonebook/Feedback: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/02-forms-events) | [Preview](https://forms-events-02.herokuapp.com/)**
