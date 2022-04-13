@@ -1,33 +1,34 @@
-import { useState } from 'react';
-import { ImageFinder, Modal, Searchbar } from './components';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import {
+  Container,
+  AppBar,
+  Cast,
+  ReviewList,
+  MovieDetailsPage,
+  HomePage,
+  MoviesPage,
+} from 'components';
 
 export default function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [image, setImage] = useState(null);
-
-  function toggleModal() {
-    setShowModal(!showModal);
-  }
-
-  function getImageUrl(e) {
-    const image = e.target.dataset.source;
-    setImage(image);
-    toggleModal();
-  }
-
   return (
-    <div className="container">
-      <Searchbar onSubmit={setSearchQuery} />
-      <ImageFinder searchQuery={searchQuery} getImageUrl={getImageUrl} />
+    <>
+      <AppBar />
 
-      {showModal && (
-        <Modal imageURL={image} onClose={toggleModal} alt={searchQuery} />
-      )}
+      <Container>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
 
-      <ToastContainer position="top-right" autoClose={1500} />
-    </div>
+          <Route exact path="/movies" element={<MoviesPage />} />
+
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<ReviewList />} />
+          </Route>
+
+          <Route path="*" element={<div>Page not found</div>} />
+        </Routes>
+      </Container>
+    </>
   );
 }

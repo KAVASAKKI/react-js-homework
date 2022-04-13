@@ -1,0 +1,61 @@
+.container {
+  margin-top: 20px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  margin-top: 15px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  overflow-y: hidden;
+
+  margin-bottom: 15px;
+
+  width: 280px;
+  height: 68px;
+
+  border: 1px solid rgba(128, 128, 128, 0.267);
+  box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.5);
+}
+.item:not(:nth-of-type(3n)) {
+  margin-right: 15px;
+}
+
+.poster {
+  max-height: 68px;
+  max-width: 45px;
+}
+
+.image {
+  height: 68px;
+  width: 45px;
+
+  background-image: repeating-linear-gradient(
+    -45deg,
+    gray,
+    gray 15px,
+    rgb(72, 72, 72) 0px,
+    rgb(72, 72, 72) 25px
+  );
+}
+
+.info {
+  padding: 5px 10px;
+}
+
+.name {
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.character {
+  margin: 0;
+  color: gray;
+}

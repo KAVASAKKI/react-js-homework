@@ -1,0 +1,69 @@
+.item {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  width: 490px;
+  height: 80px;
+
+  color: black;
+  text-decoration: none;
+
+  border: 1px solid rgba(128, 128, 128, 0.267);
+  border-radius: 5px;
+  box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.5);
+}
+.item:not(:nth-of-type(2n)) {
+  margin-right: 15px;
+}
+.item:not(:nth-last-of-type(-n + 2)) {
+  margin-bottom: 15px;
+}
+
+.avatar {
+  display: block;
+
+  width: 60px;
+  height: 60px;
+  margin-left: 10px;
+
+  border-radius: 50%;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    gray,
+    gray 15px,
+    rgb(72, 72, 72) 0px,
+    rgb(72, 72, 72) 25px
+  );
+}
+
+.info {
+  height: 100%;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.username {
+  font-size: 14pt;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.message {
+  margin: 0;
+  color: gray;
+}
+
+.link {
+  position: absolute;
+  display: none;
+
+  right: 5px;
+  bottom: 5px;
+
+  color: gray;
+}
+.item:hover .link {
+  display: block;
+}

@@ -1,0 +1,98 @@
+.main {
+  margin: 20px 0px;
+}
+
+.title {
+  font-weight: 500;
+
+  margin: 0;
+}
+
+.tagline {
+  color: gray;
+  font-weight: 100;
+
+  margin: 10px 0px 20px 0px;
+}
+
+.info {
+  display: flex;
+}
+
+.poster {
+  width: 240px;
+  height: 355px;
+
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--hover-color),
+    var(--hover-color) 15px,
+    var(--accent-color) 15px,
+    var(--accent-color) 30px
+  );
+}
+
+.image {
+  width: 100%;
+  border: 5px outset var(--accent-color);
+}
+
+.details {
+  display: flex;
+  /* justify-content: start; */
+  flex-direction: column;
+
+  max-width: 600px;
+  padding-left: 20px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+
+  padding: 5px 0px;
+}
+.meta:first-child {
+  padding-bottom: 20px;
+}
+
+.name {
+  min-width: 130px;
+  max-width: 130px;
+  font-size: 13pt;
+  font-weight: 500;
+  margin: 0;
+}
+
+.value {
+  margin: 0;
+
+  color: gray;
+}
+
+.plot {
+  max-width: 700px;
+}
+.plotSubtitle {
+  font-weight: 500;
+
+  margin: 0;
+  margin-top: 20px;
+}
+.plotText {
+  font-weight: 400;
+  line-height: 25px;
+  font-size: 13pt;
+
+  margin: 0;
+  margin-top: 5px;
+}
+
+.options {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.optionBtn:first-of-type {
+  margin-right: 15px;
+}

@@ -1,0 +1,25 @@
+.title {
+  text-align: center;
+  font-size: 22pt;
+  font-weight: 500;
+
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  margin-top: 15px;
+}
+
+.error {
+  text-align: center;
+  color: gray;
+  font-size: 16pt;
+
+  margin: 0;
+  margin-top: 50px;
+}
