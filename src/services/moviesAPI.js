@@ -33,7 +33,5 @@ export const fetchReviews = movieId => {
 
 export const fetchMovieByQuery = query => {
   const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`;
-  const r = fetchMovies(url).then(response => response.data.results);
-  console.log(r);
-  return r;
+  return fetchMovies(url).then(response => response.data.results);
 };

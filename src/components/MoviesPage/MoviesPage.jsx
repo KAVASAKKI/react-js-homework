@@ -12,11 +12,13 @@ export default function MoviesPage() {
     }
   }, [query]);
 
+  console.log('movies ', movies);
+
   return (
     <>
-      <SearchForm getQuery={setQuery} />
+      <SearchForm submitQuery={setQuery} />
 
-      {movies.length && <MoviesCards movies={movies} />}
+      {movies && <MoviesCards movies={movies} />}
     </>
   );
 }
