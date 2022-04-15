@@ -1,1 +1,1 @@
-export { default as PageHeading } from './PageHeading';
+export { PageHeading } from './PageHeading.styled';

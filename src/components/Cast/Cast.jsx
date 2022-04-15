@@ -1,24 +1,51 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { PageHeading } from 'components';
+import { Title, Loader, Message } from 'components';
 import { fetchCast } from 'services/moviesAPI';
+import {
+  Status,
+  useStateMachineWithMessage,
+} from 'hooks/useStateMachineWithMessage';
 import styles from './Cast.module.css';
 
 export default function Cast() {
-  const [cast, setCast] = useState([]);
   const { movieId } = useParams();
+  const [cast, setCast] = useState([]);
+  const { status, setStatus, message, setMessage } =
+    useStateMachineWithMessage();
 
   useEffect(() => {
-    fetchCast(movieId).then(setCast);
-  }, [movieId]);
+    setStatus(Status.PENDING);
+    fetchCast(movieId)
+      .then(actors => {
+        if (actors) {
+          setCast(actors);
+          setStatus(Status.RESOLVED);
+          return;
+        }
+
+        setMessage('Cast not found');
+        setStatus(Status.REJECTED);
+      })
+      .catch(error => {
+        setMessage(error);
+        setStatus(Status.REJECTED);
+      });
+  }, [movieId, setMessage, setStatus]);
 
   return (
     <>
-      <PageHeading children="Cast" />
+      <Title children="Cast" />
 
-      <ul className={styles.list}>
-        {cast &&
-          cast.map(person => (
+      {status === Status.IDLE && null}
+
+      {status === Status.PENDING && <Loader />}
+
+      {status === Status.REJECTED && <Message children={message} />}
+
+      {status === Status.RESOLVED && (
+        <ul className={styles.list}>
+          {cast.map(person => (
             <li key={person.id} className={styles.item}>
               <div className={styles.poster}>
                 <img
@@ -37,7 +64,8 @@ export default function Cast() {
               </div>
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
     </>
   );
 }

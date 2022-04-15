@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Button = styled.button`
   cursor: pointer;
 
+  max-width: 100px;
   padding: 4px 20px;
 
   color: var(--accent-color);

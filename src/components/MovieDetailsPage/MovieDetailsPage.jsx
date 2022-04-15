@@ -1,134 +1,66 @@
-import { Button } from 'components';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Outlet } from 'react-router-dom';
+import { Container, Button, Loader, Message } from 'components';
+import MovieDetailsMarkup from './MovieDetailsMarkup';
 import { fetchMoviesById } from 'services/moviesAPI';
-import styles from './MovieDetailsPage.module.css';
+import {
+  Status,
+  useStateMachineWithMessage,
+} from 'hooks/useStateMachineWithMessage';
 
 export default function MovieDetailsPage() {
   const [movieDetails, setMovieDetails] = useState({});
   const { movieId } = useParams();
   const navigate = useNavigate();
-  const {
-    production_countries: countries,
-    spoken_languages: translations,
-    poster_path: poster,
-    release_date: date,
-    vote_average,
-    vote_count,
-    overview,
-    tagline,
-    runtime,
-    revenue,
-    genres,
-    budget,
-    title,
-    id,
-  } = movieDetails;
+  const { status, setStatus, message, setMessage } =
+    useStateMachineWithMessage();
 
   useEffect(() => {
-    fetchMoviesById(movieId).then(setMovieDetails);
-  }, [movieId]);
+    setStatus(Status.PENDING);
 
-  const posterURL = poster ? `https://image.tmdb.org/t/p/w342${poster}` : '';
-
-  const getString = array => {
-    if (array) {
-      return array
-        .map(element =>
-          element.english_name ? element.english_name : element.name,
-        )
-        .join(', ');
-    }
-  };
+    fetchMoviesById(movieId)
+      .then(details => {
+        if (details) {
+          setMovieDetails(details);
+          setStatus(Status.RESOLVED);
+          return;
+        }
+        setMessage('Movies not found');
+        setStatus(Status.REJECTED);
+      })
+      .catch(message => {
+        setMessage(message);
+        setStatus(Status.REJECTED);
+      });
+  }, [movieId, setMessage, setStatus]);
 
   return (
-    <div className={styles.container}>
-      <Button onClick={() => navigate('/')}>Go back</Button>
+    <Container>
+      <Button onClick={() => navigate(-1)}>Go back</Button>
 
-      <div className={styles.main}>
-        <h1 className={styles.title}>{title}</h1>
-        <h2 className={styles.tagline}>{tagline}</h2>
+      {status === Status.IDLE && null}
 
-        <div className={styles.info}>
-          <div className={styles.poster}>
-            <img className={styles.image} src={posterURL} alt={title} />
-          </div>
+      {status === Status.PENDING && <Loader />}
 
-          <div className={styles.details}>
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Raiting:</h2>
-              <p className={styles.value}>
-                <span style={{ color: 'black', fontWeight: 500 }}>
-                  {vote_average}{' '}
-                </span>
-                <span>({vote_count})</span>
-              </p>
-            </div>
+      {status === Status.RESOLVED && (
+        <MovieDetailsMarkup movieDetails={movieDetails} />
+      )}
 
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Tagline:</h2>
-              <p className={styles.value}>{tagline}</p>
-            </div>
+      {status === Status.REJECTED && <Message children={message} />}
 
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Release date:</h2>
-              <p className={styles.value}>{date}</p>
-            </div>
-
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Country:</h2>
-              <p className={styles.value}>{getString(countries)}</p>
-            </div>
-
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Genres:</h2>
-              <p className={styles.value}>{getString(genres)}</p>
-            </div>
-
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Translation:</h2>
-              <p className={styles.value}>{getString(translations)}</p>
-            </div>
-
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Time:</h2>
-              <p className={styles.value}>{runtime} min.</p>
-            </div>
-
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Budget:</h2>
-              <p className={styles.value}>${budget}</p>
-            </div>
-
-            <div className={styles.meta}>
-              <h2 className={styles.name}>Revenue:</h2>
-              <p className={styles.value}>${revenue}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.plot}>
-          <h2 className={styles.plotSubtitle}>About movie «{title}»</h2>
-          <p className={styles.plotText}>{overview}</p>
-        </div>
-      </div>
-
-      <div className={styles.options}>
+      <div style={{ textAlign: 'center', paddingBottom: '15px' }}>
         <Button
-          className={styles.optionBtn}
-          onClick={() => navigate(`/movies/${id}/cast`)}
+          style={{ marginRight: '10px' }}
+          onClick={() => navigate(`/movies/${movieDetails.id}/cast`)}
         >
           Cast
         </Button>
-        <Button
-          className={styles.optionBtn}
-          onClick={() => navigate(`/movies/${id}/reviews`)}
-        >
+        <Button onClick={() => navigate(`/movies/${movieDetails.id}/reviews`)}>
           Reviews
         </Button>
       </div>
 
       <Outlet />
-    </div>
+    </Container>
   );
 }

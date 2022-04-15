@@ -1,4 +1,6 @@
-.container {
+import styled from 'styled-components';
+
+export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -7,8 +9,7 @@
   border-radius: 5px;
 
   max-width: 1030px;
-  padding: 15px 15px;
-  padding-bottom: 50px;
+  padding: 15px;
   margin: 0 auto;
   margin-bottom: 50px;
-}
+`;

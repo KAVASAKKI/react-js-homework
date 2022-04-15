@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
-  Container,
+  NotFoundPage,
   AppBar,
   Cast,
   ReviewList,
@@ -15,20 +15,18 @@ export default function App() {
     <>
       <AppBar />
 
-      <Container>
-        <Routes>
-          <Route exact path="/" element={<HomePage />} />
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
 
-          <Route exact path="/movies" element={<MoviesPage />} />
+        <Route exact path="/movies" element={<MoviesPage />} />
 
-          <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<ReviewList />} />
-          </Route>
+        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<ReviewList />} />
+        </Route>
 
-          <Route path="*" element={<div>Page not found</div>} />
-        </Routes>
-      </Container>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </>
   );
 }

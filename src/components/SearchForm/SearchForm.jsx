@@ -1,25 +1,24 @@
 import { useState } from 'react';
 import styles from './SearchForm.module.css';
 
-export default function SearchForm({ submitQuery }) {
+export default function SearchForm({ onSubmit: handleSubmit }) {
   const [query, setQuery] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
 
-    submitQuery(query);
-    setQuery('');
+    handleSubmit(query);
   };
 
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={onSubmit}>
-        <button type="submit" className={styles.button}></button>
+        <button type="submit" className={styles.button} />
         <input
           className={styles.input}
-          placeholder="Search movies..."
+          placeholder="Enter movie name..."
           type="text"
-          value={query}
+          value={query || ''}
           onChange={e => setQuery(e.target.value)}
         />
       </form>

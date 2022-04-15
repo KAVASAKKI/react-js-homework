@@ -9,6 +9,7 @@
 
   width: 100%;
   max-width: 600px;
+  margin: 15px 0px 15px 0px;
 
   border: 4px inset var(--hover-color);
   border-radius: 50px;
