@@ -16,50 +16,63 @@ import {
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const { status, setStatus, message, setMessage } =
     useStateMachineWithMessage();
+
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const query = searchParams.get('query');
 
-  const fetchData = useCallback(
-    (newPage = page) => {
-      fetchMovieByQuery(query, newPage)
-        .then(newMovies => {
-          if (newMovies.length) {
-            setMovies(prevMovies => [...prevMovies, ...newMovies]);
-            setStatus(Status.RESOLVED);
-          } else {
-            setMessage('Movies not found');
-            setStatus(Status.REJECTED);
-          }
-        })
-        .catch(message => {
-          setMessage(message);
+  const fetchData = () => {
+    console.log('Выполняется fetchData()');
+    fetchMovieByQuery(query, page)
+      .then(data => {
+        setTotalPages(data.total_pages);
+        return data.results;
+      })
+      .then(newMovies => {
+        if (newMovies.length) {
+          setMovies(prevMovies => [...prevMovies, ...newMovies]);
+          setStatus(Status.RESOLVED);
+        } else {
+          setMessage('Movies not found');
           setStatus(Status.REJECTED);
-        });
-    },
-    [page, query, setMessage, setStatus],
-  );
+        }
+      })
+      .catch(message => {
+        setMessage(message);
+        setStatus(Status.REJECTED);
+      });
+  };
 
   useEffect(() => {
-    setMovies([]);
-    setPage(1);
+    if (query) {
+      console.log('Изменился query');
+
+      setMovies([]);
+      setPage(1);
+      fetchData();
+    }
   }, [query]);
 
   useEffect(() => {
-    const query = searchParams.get('query');
+    // const query = searchParams.get('query');
+    console.log('Изменился page');
 
-    if (query === null) {
-      setPage(1);
-      setMovies([]);
-      setStatus(Status.IDLE);
-    }
     if (query) {
       setStatus(Status.PENDING);
-      fetchData(page);
+      fetchData();
+      return;
     }
-  }, [fetchData, page, searchParams, setStatus]);
+
+    console.log('query === null');
+
+    setPage(1);
+    setMovies([]);
+    setStatus(Status.IDLE);
+  }, [page]);
 
   const onSubmit = query => {
     if (query) {
@@ -80,7 +93,8 @@ export default function MoviesPage() {
       {status === Status.PENDING && <Loader />}
 
       {status === Status.RESOLVED && <MoviesCards movies={movies} />}
-      {status === Status.RESOLVED && (
+
+      {totalPages !== page && status === Status.RESOLVED && (
         <button onClick={() => setPage(page + 1)}>Load more</button>
       )}
 
