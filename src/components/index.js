@@ -17,3 +17,4 @@ export { Title } from './Title';
 export { Message } from './Message';
 export { Button } from './Button';
 export { Loader } from './Loader';
+export { LoadMoreButton } from './LoadMoreButton';

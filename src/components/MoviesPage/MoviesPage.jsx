@@ -7,6 +7,7 @@ import {
   Loader,
   PageHeading,
   Message,
+  LoadMoreButton,
 } from 'components';
 import { fetchMovieByQuery } from 'services/moviesAPI';
 import {
@@ -15,17 +16,15 @@ import {
 } from 'hooks/useStateMachineWithMessage';
 
 export default function MoviesPage() {
-  const [movies, setMovies] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
   const { status, setStatus, message, setMessage } =
     useStateMachineWithMessage();
-
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const query = searchParams.get('query');
 
   const fetchData = (newPage = page) => {
-    setStatus(Status.PENDING);
     fetchMovieByQuery(query, newPage)
       .then(data => {
         setTotalPages(data.total_pages);
@@ -50,6 +49,9 @@ export default function MoviesPage() {
     if (query) {
       setMovies([]);
       setPage(1);
+      setTotalPages(1);
+
+      setStatus(Status.PENDING);
       fetchData(1);
       return;
     }
@@ -85,9 +87,14 @@ export default function MoviesPage() {
 
       {status === Status.REJECTED && <Message children={message} />}
 
-      {totalPages !== page && status === Status.RESOLVED && (
-        <button onClick={() => setPage(page + 1)}>Load more</button>
-      )}
+      {status === Status.RESOLVED &&
+        (totalPages !== page ? (
+          <LoadMoreButton onClick={() => setPage(page + 1)}>
+            Load More
+          </LoadMoreButton>
+        ) : (
+          <Message children="It's all =)" />
+        ))}
     </Container>
   );
 }

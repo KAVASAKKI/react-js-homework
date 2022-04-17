@@ -5,16 +5,15 @@ export default function MoviesCards({ movies }) {
   return (
     <ul className={styles.list}>
       {movies.map(movie => {
-        const posterURL = movie.poster_path
-          ? `https://image.tmdb.org/t/p/w185${movie.poster_path}`
-          : '';
+        const fixedPath = path =>
+          path ? `https://image.tmdb.org/t/p/w185${path}` : '';
 
         return (
           <li key={movie.id} className={styles.card}>
             <Link to={`/movies/${movie.id}`} className={styles.link}>
               <img
                 className={styles.poster}
-                src={posterURL}
+                src={fixedPath(movie.poster_path)}
                 alt=""
                 height="275"
               />
