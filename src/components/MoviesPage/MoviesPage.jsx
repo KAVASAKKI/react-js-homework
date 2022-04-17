@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   Container,
@@ -22,12 +22,11 @@ export default function MoviesPage() {
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
   const query = searchParams.get('query');
 
-  const fetchData = () => {
-    console.log('Выполняется fetchData()');
-    fetchMovieByQuery(query, page)
+  const fetchData = (newPage = page) => {
+    setStatus(Status.PENDING);
+    fetchMovieByQuery(query, newPage)
       .then(data => {
         setTotalPages(data.total_pages);
         return data.results;
@@ -49,30 +48,20 @@ export default function MoviesPage() {
 
   useEffect(() => {
     if (query) {
-      console.log('Изменился query');
-
       setMovies([]);
       setPage(1);
-      fetchData();
-    }
-  }, [query]);
-
-  useEffect(() => {
-    // const query = searchParams.get('query');
-    console.log('Изменился page');
-
-    if (query) {
-      setStatus(Status.PENDING);
-      fetchData();
+      fetchData(1);
       return;
     }
 
-    console.log('query === null');
-
-    setPage(1);
-    setMovies([]);
     setStatus(Status.IDLE);
-  }, [page]);
+  }, [query]); //eslint-disable-line
+
+  useEffect(() => {
+    if (page !== 1 && query) {
+      fetchData();
+    }
+  }, [page]); //eslint-disable-line
 
   const onSubmit = query => {
     if (query) {
@@ -94,11 +83,11 @@ export default function MoviesPage() {
 
       {status === Status.RESOLVED && <MoviesCards movies={movies} />}
 
+      {status === Status.REJECTED && <Message children={message} />}
+
       {totalPages !== page && status === Status.RESOLVED && (
         <button onClick={() => setPage(page + 1)}>Load more</button>
       )}
-
-      {status === Status.REJECTED && <Message children={message} />}
     </Container>
   );
 }
