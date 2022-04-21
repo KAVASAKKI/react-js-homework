@@ -18,6 +18,8 @@ export const MovieDetails = () => {
   const location = useLocation();
   const { slug, movieId } = useSlug();
 
+  console.log(location);
+
   useEffect(() => {
     setStatus(Status.PENDING);
 
@@ -41,6 +43,10 @@ export const MovieDetails = () => {
     navigate(location?.state?.from ?? '/');
   };
 
+  const onNavigate = where => {
+    navigate(`/movies/${slug}/${where}`, { state: location.state });
+  };
+
   return (
     <Container>
       <Button onClick={onGoBack}>Go back</Button>
@@ -58,13 +64,11 @@ export const MovieDetails = () => {
       <div style={{ textAlign: 'center', paddingBottom: '15px' }}>
         <Button
           style={{ marginRight: '10px' }}
-          onClick={() => navigate(`/movies/${slug}/cast`)}
+          onClick={() => onNavigate('cast')}
         >
           Cast
         </Button>
-        <Button onClick={() => navigate(`/movies/${slug}/reviews`)}>
-          Reviews
-        </Button>
+        <Button onClick={() => onNavigate('reviews')}>Reviews</Button>
       </div>
 
       <Outlet />
