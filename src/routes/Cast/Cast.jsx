@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Title, Loader, Message } from 'components';
 import { fetchCast } from 'services/moviesAPI';
 import {
   Status,
   useStateMachineWithMessage,
 } from 'hooks/useStateMachineWithMessage';
+import { useSlug } from 'hooks/useSlug';
 import styles from './Cast.module.css';
 
-export default function Cast() {
-  const { movieId } = useParams();
+export const Cast = () => {
   const [cast, setCast] = useState([]);
   const { status, setStatus, message, setMessage } =
     useStateMachineWithMessage();
+
+  const { movieId } = useSlug();
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -68,4 +69,4 @@ export default function Cast() {
       )}
     </>
   );
-}
+};

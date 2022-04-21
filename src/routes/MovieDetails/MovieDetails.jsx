@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams, Outlet } from 'react-router-dom';
+import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { Container, Button, Loader, Message } from 'components';
-import MovieDetailsMarkup from './MovieDetailsMarkup';
+import { MovieDetailsMarkup } from './MovieDetailsMarkup';
 import { fetchMoviesById } from 'services/moviesAPI';
 import {
   Status,
   useStateMachineWithMessage,
 } from 'hooks/useStateMachineWithMessage';
+import { useSlug } from 'hooks/useSlug';
 
-export default function MovieDetailsPage() {
+export const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState({});
-  const { movieId } = useParams();
-  const navigate = useNavigate();
   const { status, setStatus, message, setMessage } =
     useStateMachineWithMessage();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { slug, movieId } = useSlug();
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -34,9 +37,13 @@ export default function MovieDetailsPage() {
       });
   }, [movieId, setMessage, setStatus]);
 
+  const onGoBack = () => {
+    navigate(location?.state?.from ?? '/');
+  };
+
   return (
     <Container>
-      <Button onClick={() => navigate(-1)}>Go back</Button>
+      <Button onClick={onGoBack}>Go back</Button>
 
       {status === Status.IDLE && null}
 
@@ -51,11 +58,11 @@ export default function MovieDetailsPage() {
       <div style={{ textAlign: 'center', paddingBottom: '15px' }}>
         <Button
           style={{ marginRight: '10px' }}
-          onClick={() => navigate(`/movies/${movieDetails.id}/cast`)}
+          onClick={() => navigate(`/movies/${slug}/cast`)}
         >
           Cast
         </Button>
-        <Button onClick={() => navigate(`/movies/${movieDetails.id}/reviews`)}>
+        <Button onClick={() => navigate(`/movies/${slug}/reviews`)}>
           Reviews
         </Button>
       </div>
@@ -63,4 +70,4 @@ export default function MovieDetailsPage() {
       <Outlet />
     </Container>
   );
-}
+};

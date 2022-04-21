@@ -12,7 +12,7 @@ import {
   useStateMachineWithMessage,
 } from 'hooks/useStateMachineWithMessage';
 
-export default function HomePage() {
+export const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const { status, setStatus, message, setMessage } =
     useStateMachineWithMessage();
@@ -43,4 +43,4 @@ export default function HomePage() {
       {status === Status.REJECTED && <Message children={message} />}
     </Container>
   );
-}
+};

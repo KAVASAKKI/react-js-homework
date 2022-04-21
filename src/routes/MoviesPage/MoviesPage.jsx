@@ -15,7 +15,7 @@ import {
   useStateMachineWithMessage,
 } from 'hooks/useStateMachineWithMessage';
 
-export default function MoviesPage() {
+export const MoviesPage = () => {
   const { status, setStatus, message, setMessage } =
     useStateMachineWithMessage();
   const [movies, setMovies] = useState([]);
@@ -97,4 +97,4 @@ export default function MoviesPage() {
         ))}
     </Container>
   );
-}
+};

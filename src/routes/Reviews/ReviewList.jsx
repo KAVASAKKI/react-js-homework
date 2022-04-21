@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Review from './Review';
+import { Review } from './Review';
 import { Title, Message, Loader } from 'components';
 import { fetchReviews } from 'services/moviesAPI';
 import {
   Status,
   useStateMachineWithMessage,
 } from 'hooks/useStateMachineWithMessage';
+import { useSlug } from 'hooks/useSlug';
 import styles from './ReviewList.module.css';
 
-export default function ReviewList() {
-  const { movieId } = useParams();
+export const ReviewList = () => {
   const [reviews, setReviews] = useState([]);
   const { status, setStatus, message, setMessage } =
     useStateMachineWithMessage();
+  const { movieId } = useSlug();
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -50,4 +50,4 @@ export default function ReviewList() {
       {status === Status.REJECTED && <Message children={message} />}
     </div>
   );
-}
+};

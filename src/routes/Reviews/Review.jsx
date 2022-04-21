@@ -1,6 +1,6 @@
 import styles from './Review.module.css';
 
-export default function Review({ reviews }) {
+export const Review = ({ reviews }) => {
   const fixPath = path => {
     if (!path) return;
     if (path.includes('https')) {
@@ -40,4 +40,4 @@ export default function Review({ reviews }) {
       );
     });
   }
-}
+};

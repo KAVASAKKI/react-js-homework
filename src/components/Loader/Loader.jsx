@@ -1,9 +1,7 @@
 import styles from './Loader.module.css';
 
-export default function Loader() {
-  return (
-    <div className={styles.container}>
-      <span className={styles.loader}></span>
-    </div>
-  );
-}
+export const Loader = () => (
+  <div className={styles.container}>
+    <span className={styles.loader}></span>
+  </div>
+);

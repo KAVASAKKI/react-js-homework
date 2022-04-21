@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './SearchForm.module.css';
 
-export default function SearchForm({ onSubmit: handleSubmit }) {
+export const SearchForm = ({ onSubmit: handleSubmit }) => {
   const [query, setQuery] = useState('');
 
   const onSubmit = e => {
@@ -24,4 +24,4 @@ export default function SearchForm({ onSubmit: handleSubmit }) {
       </form>
     </div>
   );
-}
+};

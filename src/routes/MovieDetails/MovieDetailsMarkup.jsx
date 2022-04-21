@@ -1,6 +1,6 @@
 import styles from './MovieDetailsMarkup.module.css';
 
-export default function MovieDetailsMarkup({ movieDetails }) {
+export const MovieDetailsMarkup = ({ movieDetails }) => {
   const {
     production_countries: countries,
     spoken_languages: translations,
@@ -98,4 +98,4 @@ export default function MovieDetailsMarkup({ movieDetails }) {
       </div>
     </div>
   );
-}
+};

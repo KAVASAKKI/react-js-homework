@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Navigation.module.css';
 
-export default function Navigation() {
+export const Navigation = () => {
   const makeClassName = ({ isActive }) => {
     return `${styles.link} ${isActive ? styles.activeLink : ''}`;
   };
@@ -27,4 +27,4 @@ export default function Navigation() {
       </ul>
     </nav>
   );
-}
+};
