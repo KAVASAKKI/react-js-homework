@@ -15,3 +15,6 @@
 
 ## Homework 5 (Routers)
 - Movies: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/05-movies) — [Preview](https://05-movies-app.netlify.app/)**
+
+## Homework 6 (Redux)
+- Phonebook: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/06-phonebook-redux) — [Soon]**
