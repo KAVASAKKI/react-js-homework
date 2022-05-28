@@ -1,23 +1,21 @@
 import { useState } from 'react';
 import propTypes from 'prop-types';
-import { nanoid } from 'nanoid';
-import { Form, Label, Input, Button } from './ContactForm.styled';
 
-export default function ContactForm({ addContact }) {
+import { Form, Label, Input, Button } from './ContactForm.styled';
+import { addContact } from 'redux/phonebook/phonebook-actions';
+import { connect } from 'react-redux';
+
+function ContactForm({ onSubmit }) {
   const [state, setState] = useState({
     name: '',
     number: '',
   });
   const { name, number } = state;
 
-  function onSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
 
-    addContact({
-      id: nanoid(),
-      name,
-      number,
-    });
+    onSubmit({ name, number });
 
     setState({ name: '', number: '' });
   }
@@ -29,7 +27,7 @@ export default function ContactForm({ addContact }) {
   }
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Label>
         Name
         <Input
@@ -61,6 +59,12 @@ export default function ContactForm({ addContact }) {
   );
 }
 
+const mapDispatchToProps = dispatch => ({
+  onSubmit: newContact => dispatch(addContact(newContact)),
+});
+
+export default connect(null, mapDispatchToProps)(ContactForm);
+
 ContactForm.propTypes = {
-  addContact: propTypes.func.isRequired,
+  onSubmit: propTypes.func.isRequired,
 };
