@@ -1,25 +1,24 @@
 import { useState } from 'react';
-import propTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import actions from 'redux/phonebook/phonebook-actions';
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
   const [state, setState] = useState({
     name: '',
     number: '',
   });
   const { name, number } = state;
+  const dispatch = useDispatch();
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    onSubmit({ name, number });
-
+    dispatch(actions.addContact({ name, number }));
     setState({ name: '', number: '' });
   }
 
   function onChange(event) {
     const { name: type, value } = event.target;
-
     setState(prevState => ({ ...prevState, [type]: value }));
   }
 
@@ -55,7 +54,3 @@ export default function ContactForm({ onSubmit }) {
     </Form>
   );
 }
-
-ContactForm.propTypes = {
-  onSubmit: propTypes.func.isRequired,
-};

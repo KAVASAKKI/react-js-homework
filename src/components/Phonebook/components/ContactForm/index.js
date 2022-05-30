@@ -1,1 +1,1 @@
-export { default as ContactForm } from './ContactForm.container';
+export { default as ContactForm } from './ContactForm';
