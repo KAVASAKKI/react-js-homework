@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { changeFilter } from 'redux/phonebook/phonebook-actions';
 import { Label, Input } from './Filter.styled';
 
-function Filter({ onChange, value }) {
+export default function Filter({ onChange, value }) {
   return (
     <Label>
       Find contacts by name
@@ -16,16 +14,6 @@ function Filter({ onChange, value }) {
     </Label>
   );
 }
-
-const mapStateToProps = state => ({
-  value: state.phonebook.filter,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onChange: e => dispatch(changeFilter(e.target.value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 
 Filter.propTypes = {
   onChange: PropTypes.func.isRequired,

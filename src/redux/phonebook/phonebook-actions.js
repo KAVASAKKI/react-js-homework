@@ -1,21 +1,14 @@
-import { ADD, CHANGE_FILTER, DELETE } from './phonebook-types';
+import { createAction } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 
-export const addContact = ({ name, number }) => ({
-  type: ADD,
-  payload: {
-    id: nanoid(),
-    name,
-    number,
-  },
-});
+const addContact = createAction('contacts/addContact', ({ name, number }) => ({
+  payload: { id: nanoid(), name, number },
+}));
 
-export const removeContact = contactId => ({
-  type: DELETE,
-  payload: contactId,
-});
+const removeContact = createAction('contacts/removeContact');
 
-export const changeFilter = value => ({
-  type: CHANGE_FILTER,
-  payload: value,
-});
+const changeFilter = createAction('contacts/changeFilter');
+
+const actions = { addContact, removeContact, changeFilter };
+
+export default actions;
