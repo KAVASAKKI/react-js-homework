@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
 import { Notification } from '../../components';
-import actions from 'redux/phonebook/phonebook-actions';
+import * as phonebookOperations from 'redux/phonebook/phonebook-operations';
 import { useSelector, useDispatch } from 'react-redux';
 import { getVisibleContacts } from 'redux/phonebook/phonebook-selectors';
 import { List, Item, Name, Number, Button } from './ContactList.styled';
+import { useEffect } from 'react';
 
 export default function ContactList() {
   const contacts = useSelector(getVisibleContacts);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(phonebookOperations.fetchContacts());
+  }, [dispatch]);
 
   return (
     <>
@@ -16,12 +21,12 @@ export default function ContactList() {
           {contacts.map(contact => (
             <Item key={contact.id}>
               <Name>{contact.name}</Name>
-              <Number>{contact.number}</Number>
+              <Number>{contact.phone}</Number>
 
               <Button
                 type="button"
                 onClick={() => {
-                  dispatch(actions.removeContact(contact.id));
+                  dispatch(phonebookOperations.removeContact(contact.id));
                 }}
               >
                 Del
