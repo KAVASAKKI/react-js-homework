@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  margin-right: 20px;
+}
+
+.emailUser {
+  font-size: 16pt;
+  color: gray;
+
+  margin-right: 20px;
+}

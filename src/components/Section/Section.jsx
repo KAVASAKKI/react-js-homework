@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
-import { Title } from './Section.styled';
+import styles from './Section.module.css';
 
 export default function Section({ color = 'black', title, children }) {
   return (
     <>
-      <Title color={color}>{title}</Title>
+      <h1 style={{ color }} className={styles.title}>
+        {title}
+      </h1>
       {children}
     </>
   );

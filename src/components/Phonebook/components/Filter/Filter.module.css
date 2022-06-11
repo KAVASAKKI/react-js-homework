@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const Label = styled.label`
+.label {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,9 +13,9 @@ export const Label = styled.label`
 
   border-radius: 5px;
   background-color: rgba(138, 168, 228, 0.288);
-`;
+}
 
-export const Input = styled.input`
+.input {
   outline: none;
   border: 2px solid teal;
   border-radius: 5px;
@@ -27,4 +25,4 @@ export const Input = styled.input`
   font-size: 12pt;
   color: teal;
   background-color: white;
-`;
+}

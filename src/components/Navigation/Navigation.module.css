@@ -1,0 +1,37 @@
+.list {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  /* width: calc(110px * 2); */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.link {
+  display: block;
+  padding: 20px;
+  width: 110px;
+
+  text-decoration: none;
+  text-align: center;
+  font-size: 16pt;
+  color: gray;
+
+  overflow-x: hidden;
+  transition: all 150ms linear;
+}
+.link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--hover-color);
+}
+
+.activeLink {
+  color: var(--accent-color);
+
+  transition: all 150ms linear;
+}
+.activeLink:hover {
+  color: var(--accent-color);
+}

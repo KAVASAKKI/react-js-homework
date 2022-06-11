@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addContact } from 'redux/phonebook/phonebook-operations';
-import { Form, Label, Input, Button } from './ContactForm.styled';
+import styles from './ContactForm.module.css';
 
 export default function ContactForm() {
   const [state, setState] = useState({
@@ -23,10 +23,11 @@ export default function ContactForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label className={styles.label}>
         Name
-        <Input
+        <input
+          className={styles.input}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -35,11 +36,12 @@ export default function ContactForm() {
           onChange={onChange}
           value={name}
         />
-      </Label>
+      </label>
 
-      <Label>
+      <label className={styles.label}>
         Number
-        <Input
+        <input
+          className={styles.input}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -48,9 +50,11 @@ export default function ContactForm() {
           onChange={onChange}
           value={number}
         />
-      </Label>
+      </label>
 
-      <Button type="submit">Add contact</Button>
-    </Form>
+      <button className={styles.button} type="submit">
+        Add contact
+      </button>
+    </form>
   );
 }

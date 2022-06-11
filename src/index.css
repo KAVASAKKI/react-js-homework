@@ -1,4 +1,8 @@
 @import 'modern-normalize/modern-normalize.css';
+:root {
+  --accent-color: teal;
+  --hover-color: rgb(5, 170, 170);
+}
 
 body {
   background-color: rgba(138, 168, 228, 0.288);
@@ -11,7 +15,6 @@ body {
   align-items: center;
 
   width: 100%;
-  height: 600px;
 }
 
 ul {

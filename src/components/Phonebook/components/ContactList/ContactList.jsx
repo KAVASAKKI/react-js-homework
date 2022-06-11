@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { Notification } from '../../components';
-import * as phonebookOperations from 'redux/phonebook/phonebook-operations';
-import { useSelector, useDispatch } from 'react-redux';
-import { getVisibleContacts } from 'redux/phonebook/phonebook-selectors';
-import { List, Item, Name, Number, Button } from './ContactList.styled';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import * as phonebookOperations from 'redux/phonebook/phonebook-operations';
+import { getVisibleContacts } from 'redux/phonebook/phonebook-selectors';
+import { Notification } from '../../components';
+import styles from './ContactList.module.css';
 
 export default function ContactList() {
   const contacts = useSelector(getVisibleContacts);
@@ -17,23 +17,24 @@ export default function ContactList() {
   return (
     <>
       {contacts.length ? (
-        <List>
+        <ul className={styles.list}>
           {contacts.map(contact => (
-            <Item key={contact.id}>
-              <Name>{contact.name}</Name>
-              <Number>{contact.phone}</Number>
+            <li className={styles.item} key={contact.id}>
+              <span className={styles.name}>{contact.name}</span>
+              <span className={styles.number}>{contact.phone}</span>
 
-              <Button
+              <button
+                className={styles.button}
                 type="button"
                 onClick={() => {
                   dispatch(phonebookOperations.removeContact(contact.id));
                 }}
               >
                 Del
-              </Button>
-            </Item>
+              </button>
+            </li>
           ))}
-        </List>
+        </ul>
       ) : (
         <Notification message="Contacts not found" />
       )}
