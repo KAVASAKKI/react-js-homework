@@ -18,3 +18,9 @@
 
 ## Homework 6 (Redux)
 - Phonebook: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/06-phonebook-redux) — [Soon]**
+
+## Homework 7 (Redux)
+- Phonebook: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/07-phonebook) — [Soon]**
+
+## Homework 8 (Auth)
+- Phonebook: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/08-phonebook-auth) — [Soon]**
