@@ -4,9 +4,9 @@ import {
   ContactList,
   Filter,
   Section,
-} from './components';
+} from 'components';
 
-export default function Phonebook() {
+export default function ContactsPage() {
   return (
     <Container>
       <Section color="teal" title="Phonebook">

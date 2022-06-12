@@ -1,12 +1,43 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { authOperations } from 'redux/auth';
 import styles from './RegisterForm.module.css';
 
 export default function RegisterForm() {
-  const handleSubmit = e => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const onSubmit = e => {
     e.preventDefault();
+    dispatch(authOperations.register({ name, email, password }));
+    setName('');
+    setEmail('');
+    setPassword('');
+  };
+
+  const onChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'email':
+        setEmail(value);
+        break;
+
+      case 'password':
+        setPassword(value);
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={onSubmit} className={styles.form}>
       <label className={styles.label}>
         Name
         <input
@@ -14,8 +45,8 @@ export default function RegisterForm() {
           type="text"
           name="name"
           required
-          //   onChange={onChange}
-          //   value={name}
+          onChange={onChange}
+          value={name}
         />
       </label>
 
@@ -26,8 +57,8 @@ export default function RegisterForm() {
           type="email"
           name="email"
           required
-          //   onChange={onChange}
-          //   value={name}
+          onChange={onChange}
+          value={email}
         />
       </label>
 
@@ -38,8 +69,8 @@ export default function RegisterForm() {
           type="password"
           name="password"
           required
-          //   onChange={onChange}
-          //   value={name}
+          onChange={onChange}
+          value={password}
         />
       </label>
 

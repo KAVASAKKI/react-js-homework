@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as phonebookOperations from 'redux/phonebook/phonebook-operations';
-import { getVisibleContacts } from 'redux/phonebook/phonebook-selectors';
-import { Notification } from '../../components';
+import { contactsOperations, contactsSelectors } from 'redux/contacts';
+import { Notification } from 'components';
 import styles from './ContactList.module.css';
 
 export default function ContactList() {
-  const contacts = useSelector(getVisibleContacts);
+  const contacts = useSelector(contactsSelectors.getVisibleContacts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(phonebookOperations.fetchContacts());
+    dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
 
   return (
@@ -21,13 +20,13 @@ export default function ContactList() {
           {contacts.map(contact => (
             <li className={styles.item} key={contact.id}>
               <span className={styles.name}>{contact.name}</span>
-              <span className={styles.number}>{contact.phone}</span>
+              <span className={styles.number}>{contact.number}</span>
 
               <button
                 className={styles.button}
                 type="button"
                 onClick={() => {
-                  dispatch(phonebookOperations.removeContact(contact.id));
+                  dispatch(contactsOperations.removeContact(contact.id));
                 }}
               >
                 Del
