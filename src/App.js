@@ -13,63 +13,67 @@ export default function App() {
   }, [dispatch]);
 
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  const isFetchingCurrentUser = useSelector(
+    authSelectors.getIsFetchingCurrentUser,
+  );
 
   return (
-    <>
-      <AppBar />
+    isFetchingCurrentUser && (
+      <>
+        <AppBar />
 
-      <div className="container">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PublicRoute>
-                <WelcomePage />
-              </PublicRoute>
-            }
-            exact
-          />
+        <div className="container">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <WelcomePage />
+                </PublicRoute>
+              }
+              exact
+            />
 
-          <Route
-            path="/contacts"
-            element={
-              <PrivateRoute isLoggedIn={isLoggedIn} redirectTo="/login">
-                <ContactsPage />
-              </PrivateRoute>
-            }
-          />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute isLoggedIn={isLoggedIn} redirectTo="/login">
+                  <ContactsPage />
+                </PrivateRoute>
+              }
+            />
 
-          <Route
-            path="/register"
-            element={
-              <PublicRoute
-                isLoggedIn={isLoggedIn}
-                redirectTo="/contacts"
-                restricted
-              >
-                <RegisterPage />
-              </PublicRoute>
-            }
-          />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute
+                  isLoggedIn={isLoggedIn}
+                  redirectTo="/contacts"
+                  restricted
+                >
+                  <RegisterPage />
+                </PublicRoute>
+              }
+            />
 
-          <Route
-            path="/login"
-            element={
-              <PublicRoute
-                isLoggedIn={isLoggedIn}
-                redirectTo="/contacts"
-                restricted
-              >
-                <LoginPage />
-              </PublicRoute>
-            }
-          />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute
+                  isLoggedIn={isLoggedIn}
+                  redirectTo="/contacts"
+                  restricted
+                >
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
 
-        {/* ШИЛО НА МИЛО =) */}
-        {/* <Routes>
+          {/* ШИЛО НА МИЛО =) */}
+          {/* <Routes>
           <Route path="/" element={<WelcomePage />} exact />
 
           <Route
@@ -99,7 +103,8 @@ export default function App() {
 
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes> */}
-      </div>
-    </>
+        </div>
+      </>
+    )
   );
 }
