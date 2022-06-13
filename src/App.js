@@ -71,40 +71,33 @@ export default function App() {
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-
-          {/* ШИЛО НА МИЛО =) */}
-          {/* <Routes>
-          <Route path="/" element={<WelcomePage />} exact />
-
-          <Route
-            path="/contacts"
-            element={
-              isLoggedIn ? <ContactsPage /> : <Navigate replace to="/login" />
-            }
-          />
-
-          <Route
-            path="/register"
-            element={
-              isLoggedIn ? (
-                <Navigate replace to="/contacts" />
-              ) : (
-                <RegisterPage />
-              )
-            }
-          />
-
-          <Route
-            path="/login"
-            element={
-              isLoggedIn ? <Navigate replace to="/contacts" /> : <LoginPage />
-            }
-          />
-
-          <Route path="*" element={<Navigate replace to="/" />} />
-        </Routes> */}
         </div>
       </>
     )
   );
 }
+
+/* ШИЛО НА МИЛО =) */
+
+/* <Routes>
+  <Route path="/" element={<WelcomePage />} exact />
+
+  <Route
+    path="/contacts"
+    element={isLoggedIn ? <ContactsPage /> : <Navigate replace to="/login" />}
+  />
+
+  <Route
+    path="/register"
+    element={
+      isLoggedIn ? <Navigate replace to="/contacts" /> : <RegisterPage />
+    }
+  />
+
+  <Route
+    path="/login"
+    element={isLoggedIn ? <Navigate replace to="/contacts" /> : <LoginPage />}
+  />
+
+  <Route path="*" element={<Navigate replace to="/" />} />
+</Routes>; */

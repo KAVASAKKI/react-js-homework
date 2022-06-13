@@ -43,7 +43,7 @@ const fetchCurrentUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const localStorageToken = thunkAPI.getState().auth.token;
 
-    if (localStorageToken === null) return thunkAPI.rejectWithValue();
+    if (localStorageToken === null) return thunkAPI.rejectWithValue(5);
 
     token.set(localStorageToken);
     try {
