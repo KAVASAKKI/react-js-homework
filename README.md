@@ -23,4 +23,4 @@
 - Phonebook: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/07-phonebook) — [Soon]**
 
 ## Homework 8 (Redux & Auth)
-- Phonebook: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/08-phonebook-auth) — [Soon]**
+- Phonebook: **[Browse code](https://github.com/KAVASAKKI/react-js-homework/tree/08-phonebook-auth) — [Preview](https://08-phonebook-auth.netlify.app/)**
