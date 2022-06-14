@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import { Notification } from 'components';
 import styles from './ContactList.module.css';
+import { Link } from 'react-router-dom';
 
 export default function ContactList() {
   const contacts = useSelector(contactsSelectors.getVisibleContacts);
@@ -19,8 +20,10 @@ export default function ContactList() {
         <ul className={styles.list}>
           {contacts.map(contact => (
             <li className={styles.item} key={contact.id}>
-              <span className={styles.name}>{contact.name}</span>
-              <span className={styles.number}>{contact.number}</span>
+              <Link className={styles.link} to={contact.id}>
+                <span className={styles.name}>{contact.name}</span>
+                <span className={styles.number}>{contact.number}</span>
+              </Link>
 
               <button
                 className={styles.button}

@@ -1,5 +1,6 @@
 export { AppBar } from './AppBar';
 export { AuthNav } from './AuthNav';
+export { ChangeContactForm } from './ChangeContactForm';
 export { ContactForm } from './ContactForm';
 export { ContactList } from './ContactList';
 export { Container } from './Container';

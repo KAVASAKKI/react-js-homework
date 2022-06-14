@@ -3,7 +3,13 @@ import { Navigate, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authOperations, authSelectors } from 'redux/auth';
 import { PrivateRoute, PublicRoute, AppBar } from 'components';
-import { ContactsPage, WelcomePage, RegisterPage, LoginPage } from 'routes';
+import {
+  ContactsPage,
+  WelcomePage,
+  RegisterPage,
+  LoginPage,
+  ChangeContactPage,
+} from 'routes';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -39,6 +45,16 @@ export default function App() {
               element={
                 <PrivateRoute isLoggedIn={isLoggedIn} redirectTo="/login">
                   <ContactsPage />
+                </PrivateRoute>
+              }
+              exact
+            />
+
+            <Route
+              path="/contacts/:contactId"
+              element={
+                <PrivateRoute isLoggedIn={isLoggedIn} redirectTo="/login">
+                  <ChangeContactPage />
                 </PrivateRoute>
               }
             />

@@ -19,5 +19,14 @@ const removeContact = createAsyncThunk(
   },
 );
 
-const operations = { fetchContacts, addContact, removeContact };
+const changeContact = createAsyncThunk(
+  'contacts/changeContact',
+  async ({ id, name, number }) => {
+    const { data } = await axios.patch(`/contacts/${id}`, { name, number });
+    console.log(data);
+    return data;
+  },
+);
+
+const operations = { fetchContacts, addContact, removeContact, changeContact };
 export default operations;
