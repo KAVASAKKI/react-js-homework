@@ -1,7 +1,13 @@
-import PropsTypes from 'prop-types';
+import { IProfile as IProps } from 'types/types';
 import s from './Profile.module.css';
 
-export default function Profile({ username, tag, location, avatar, stats }) {
+export default function Profile({
+  username,
+  tag,
+  location,
+  avatar,
+  stats,
+}: IProps) {
   return (
     <div className={s.container}>
       <div className={s.description}>
@@ -28,15 +34,3 @@ export default function Profile({ username, tag, location, avatar, stats }) {
     </div>
   );
 }
-
-Profile.PropsTypes = {
-  username: PropsTypes.string.isRequired,
-  tag: PropsTypes.string.isRequired,
-  location: PropsTypes.string.isRequired,
-  avatar: PropsTypes.string.isRequired,
-  stats: PropsTypes.shape({
-    followers: PropsTypes.number.isRequired,
-    views: PropsTypes.number.isRequired,
-    likes: PropsTypes.number.isRequired,
-  }).isRequired,
-};

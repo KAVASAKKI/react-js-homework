@@ -1,7 +1,12 @@
-import PropsTypes from 'prop-types';
 import s from '../FriendList/FriendList.module.css';
 
-export default function FriendListItem({ avatar, name, isOnline }) {
+interface IProps {
+  avatar: string;
+  name: string;
+  isOnline: boolean;
+}
+
+export default function FriendListItem({ avatar, name, isOnline }: IProps) {
   return (
     <li className={s.item}>
       <span
@@ -12,9 +17,3 @@ export default function FriendListItem({ avatar, name, isOnline }) {
     </li>
   );
 }
-
-FriendListItem.PropsTypes = {
-  avatar: PropsTypes.string.isRequired,
-  name: PropsTypes.string.isRequired,
-  isOnline: PropsTypes.bool.isRequired,
-};

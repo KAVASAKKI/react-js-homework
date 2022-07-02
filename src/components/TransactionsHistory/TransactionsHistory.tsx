@@ -1,7 +1,11 @@
-import PropsTypes from 'prop-types';
+import { ITransaction } from 'types/types';
 import s from './TransactionsHistory.module.css';
 
-export default function TransactionsHistory({ items }) {
+interface IProps {
+  items: ITransaction[];
+}
+
+export default function TransactionsHistory({ items }: IProps) {
   return (
     <table className={s.container}>
       <thead className={s.thead}>
@@ -24,12 +28,3 @@ export default function TransactionsHistory({ items }) {
     </table>
   );
 }
-
-TransactionsHistory.PropsTypes = {
-  items: PropsTypes.arrayOf({
-    id: PropsTypes.string.isRequired,
-    type: PropsTypes.string.isRequired,
-    amount: PropsTypes.string.isRequired,
-    currency: PropsTypes.string.isRequired,
-  }),
-};
