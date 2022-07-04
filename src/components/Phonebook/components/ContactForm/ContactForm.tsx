@@ -1,24 +1,29 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { TContact } from 'types/types';
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
-class ContactForm extends Component {
-  static propTypes = {
-    addContact: PropTypes.func.isRequired,
-  };
+interface Props {
+  addContact: (state: TContact) => void;
+}
 
+interface State {
+  name?: string;
+  number?: string;
+}
+
+class ContactForm extends Component<Props, State> {
   state = {
     name: '',
     number: '',
   };
 
-  handleChange = event => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
     this.setState({ [name]: value });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     this.props.addContact({

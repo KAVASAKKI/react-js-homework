@@ -1,6 +1,4 @@
-import React from 'react';
-import Feedback from './bus/Feedback';
-import Phonebook from './bus/Phonebook';
+import { Feedback, Phonebook } from 'components';
 
 export default function App() {
   return (

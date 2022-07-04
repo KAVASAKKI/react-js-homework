@@ -1,13 +1,19 @@
 import { Component } from 'react';
+import { TContact } from 'types/types';
 import {
   Container,
   ContactForm,
   ContactList,
   Filter,
   Section,
-} from './components';
+} from 'components';
 
-class Phonebook extends Component {
+interface State {
+  contacts: TContact[];
+  filter: string;
+}
+
+class Phonebook extends Component<{}, State> {
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -18,7 +24,7 @@ class Phonebook extends Component {
     filter: '',
   };
 
-  addContact = newContact => {
+  addContact = (newContact: TContact) => {
     const isExist = this.state.contacts.find(
       contact => contact.name === newContact.name,
     );
@@ -30,13 +36,13 @@ class Phonebook extends Component {
         }));
   };
 
-  deleteContact = contactId => {
+  deleteContact = (contactId: string) => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
 
-  changeFilter = event => {
+  changeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ filter: event.currentTarget.value });
   };
 

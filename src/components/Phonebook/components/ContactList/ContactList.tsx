@@ -1,8 +1,13 @@
-import PropTypes from 'prop-types';
-import { Notification } from '../../components';
+import { Notification } from 'components';
+import { TContact } from 'types/types';
 import { List, Item, Name, Number, Button } from './ContactList.styled';
 
-const ContactList = ({ deleteContact, contacts }) => (
+interface Props {
+  deleteContact: (contactId: string) => void;
+  contacts: TContact[];
+}
+
+const ContactList = ({ deleteContact, contacts }: Props) => (
   <>
     {contacts.length ? (
       <List>
@@ -27,15 +32,5 @@ const ContactList = ({ deleteContact, contacts }) => (
     )}
   </>
 );
-ContactList.propTypes = {
-  deleteContact: PropTypes.func.isRequired,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired,
-  ),
-};
 
 export default ContactList;
