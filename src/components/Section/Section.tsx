@@ -2,7 +2,7 @@ import { Title } from './Section.styled';
 
 interface Props {
   color?: string;
-  title?: string;
+  title: string;
   children: React.ReactNode;
 }
 

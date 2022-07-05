@@ -1,14 +1,22 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { TOption } from 'types/types';
 import { Container, Section, FeedbackOptions, Statistics } from 'components';
 
-class Feedback extends Component {
+interface Props {
+  initialValue: number;
+}
+
+interface State {
+  estimates: {
+    good: number;
+    neutral: number;
+    bad: number;
+  };
+}
+
+class Feedback extends Component<Props, State> {
   static defaultProps = {
     initialValue: 0,
-  };
-
-  static propTypes = {
-    initialValue: PropTypes.number,
   };
 
   state = {
@@ -19,7 +27,7 @@ class Feedback extends Component {
     },
   };
 
-  estimateHandler = type => {
+  estimateHandler = (type: TOption) => {
     this.setState(prevState => ({
       estimates: {
         ...prevState.estimates,
@@ -43,11 +51,11 @@ class Feedback extends Component {
 
   render() {
     const { good, neutral, bad } = this.state.estimates;
-    const options = Object.keys({ good, neutral, bad });
+    const options = Object.keys({ good, neutral, bad }) as TOption[];
     const total = this.countTotalFeedback();
     const positivePercentage = this.countPositiveFeedbackPercentage();
 
-    const color = 'rgba(0, 0, 0, 0.8)';
+    const color: string = 'rgba(0, 0, 0, 0.8)';
 
     return (
       <Container>

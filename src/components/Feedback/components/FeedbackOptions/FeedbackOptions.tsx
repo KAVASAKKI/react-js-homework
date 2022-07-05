@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types';
+import { TOption } from 'types/types';
 import styles from './FeedbackOptions.module.css';
 
-const FeedbackOptions = ({ options, onLeaveFeedback }) => (
+interface Props {
+  options: TOption[];
+  onLeaveFeedback: (option: TOption) => void;
+}
+
+const FeedbackOptions = ({ options, onLeaveFeedback }: Props) => (
   <div className={styles.container}>
     {options.map(option => (
       <button
@@ -14,10 +19,5 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => (
     ))}
   </div>
 );
-
-FeedbackOptions.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onLeaveFeedback: PropTypes.func.isRequired,
-};
 
 export default FeedbackOptions;

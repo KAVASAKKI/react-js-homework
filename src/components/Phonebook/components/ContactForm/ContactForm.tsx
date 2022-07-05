@@ -8,8 +8,8 @@ interface Props {
 }
 
 interface State {
-  name?: string;
-  number?: string;
+  name: string;
+  number: string;
 }
 
 class ContactForm extends Component<Props, State> {
@@ -20,7 +20,14 @@ class ContactForm extends Component<Props, State> {
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
-    this.setState({ [name]: value });
+
+    if (name === 'name') {
+      this.setState({ name: value });
+    }
+
+    if (name === 'number') {
+      this.setState({ number: value });
+    }
   };
 
   handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {

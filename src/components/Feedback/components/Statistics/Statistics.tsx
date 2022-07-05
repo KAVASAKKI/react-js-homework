@@ -2,7 +2,21 @@ import PropTypes from 'prop-types';
 import { Notification } from 'components';
 import styles from './Statistics.module.css';
 
-const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
+interface Props {
+  good: number;
+  neutral: number;
+  bad: number;
+  total: number;
+  positivePercentage: number;
+}
+
+const Statistics = ({
+  good,
+  neutral,
+  bad,
+  total,
+  positivePercentage,
+}: Props) => (
   <>
     {total ? (
       <div className={styles.container}>
